@@ -6,7 +6,7 @@ import PopularProducts from "@/components/popularProducts";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <Nav />
       <div className="flex h-full flex-col items-center bg-secondary">
         <Image src={"/main.png"} alt="mainImage" width={400} height={400} />

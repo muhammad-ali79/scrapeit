@@ -8,7 +8,7 @@ function Footer() {
       <Link href={"/"}>
         <Image src={"/logo.svg"} alt="scrapeit logo" width={80} height={100} />
       </Link>
-      <div className="flex flex-col items-start gap-y-10 md:gap-x-16 lg:flex-row">
+      <div className="flex flex-col items-start gap-y-10 md:flex-row md:gap-x-16">
         <div className="flex flex-col gap-y-1">
           <p className="text-sm text-gray-300">Connect</p>
           <Link href="#">Follow us</Link>
