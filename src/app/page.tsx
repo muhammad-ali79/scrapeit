@@ -3,6 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/nav";
 import FeaturesSection from "@/components/features-section";
 import PopularProducts from "@/components/popularProducts";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       </div>
       {/* Fetched popular product */}
       <PopularProducts />
+      <Footer />
     </main>
   );
 }
