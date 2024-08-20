@@ -1,6 +1,7 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { getProductIdAndURl } from "@/app/api/validate-product-url/[url]/route";
+import { getProductId } from "@/components/validateProductUrl";
+
 export default clerkMiddleware((auth, req) => {
   const requestUrl = req.nextUrl;
   const host = req.headers.get("host");
@@ -24,11 +25,10 @@ export default clerkMiddleware((auth, req) => {
     if (requestUrl.pathname.startsWith("/product")) {
       // console.log("starting from product");
 
-      const { productId } = getProductIdAndURl();
-      if (productId === "") return;
+      if (getProductId === "") return;
       return NextResponse.rewrite(
         new URL(
-          `/dashboard/product/track/${productId}/${searchParams.length > 0 ? searchParams : ""}`,
+          `/dashboard/product/track/${getProductId}/${searchParams.length > 0 ? searchParams : ""}`,
           req.url,
         ),
       );

@@ -1,11 +1,10 @@
 import initScraper from "@/libs/scripts/initTrackerScraper";
-import { getProductIdAndURl } from "@/app/api/validate-product-url/[url]/route";
+import { getProductId, getUrl } from "@/components/validateProductUrl";
 import Image from "next/image";
 import AddToTrackListButton from "@/components/addToTracklistButtton";
 
 async function Page() {
-  const { url, productId } = getProductIdAndURl();
-  const data = await initScraper(url);
+  const data = await initScraper(getUrl);
 
   return (
     <div className="mx-20 my-20 flex flex-col items-center gap-y-12 md:flex-row md:gap-x-20">
@@ -23,7 +22,11 @@ async function Page() {
         {/* <button className="rounded-2xl bg-accent px-28 py-7 text-center font-semibold md:text-xl">
           Add to Tracklist
         </button> */}
-        <AddToTrackListButton url={url} productId={productId} data={data} />
+        <AddToTrackListButton
+          url={getUrl}
+          productId={getProductId}
+          data={data}
+        />
       </div>
     </div>
   );

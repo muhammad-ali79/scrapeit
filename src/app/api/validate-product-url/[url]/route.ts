@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-let productId: string;
-let url: string;
-
 export async function GET(
   req: NextRequest,
   { params }: { params: { url: string } },
 ) {
   try {
     console.log("Params", params);
-    url = (params?.url ?? "").trim();
+    const url = (params?.url ?? "").trim();
     console.log("Received URL:", url.length);
 
     if (url === "") {
@@ -19,7 +16,7 @@ export async function GET(
       );
     }
 
-    productId = url.match(/\/dp\/([A-Z0-9]+)/)?.[1].toString() ?? "";
+    const productId = url.match(/\/dp\/([A-Z0-9]+)/)?.[1].toString() ?? "";
     console.log("Product ID:", productId);
 
     if (!productId || productId === "") {
@@ -29,7 +26,7 @@ export async function GET(
       );
     }
 
-    return NextResponse.json(productId, { status: 200 });
+    return NextResponse.json({ productId, url }, { status: 200 });
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(
@@ -37,11 +34,6 @@ export async function GET(
       { status: 500 },
     );
   }
-}
-
-export function getProductIdAndURl() {
-  console.log("From api", productId, url);
-  return { productId, url };
 }
 
 // https://www.amazon.com/HOFFREE-Computer-Footrest-Reclining-Headrest/dp/B0CRH5VLVG/ref=sr_1_7?_encoding=UTF8&sr=8-7
