@@ -4,6 +4,7 @@ import Nav from "@/components/nav";
 import FeaturesSection from "@/components/features-section";
 import PopularProducts from "@/components/popularProducts";
 import Footer from "@/components/footer";
+import { ClientButton } from "@/components/search";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       {/* Fetched popular product */}
       <PopularProducts />
       <Footer />
+      <ClientButton />
     </main>
   );
 }

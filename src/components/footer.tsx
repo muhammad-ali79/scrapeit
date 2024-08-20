@@ -1,10 +1,9 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 function Footer() {
   return (
-    <footer className="flex flex-col flex-wrap items-start gap-y-4 border-t-2 border-gray-600 bg-secondary p-4 md:flex-row md:gap-x-32">
+    <footer className="flex flex-1 flex-col flex-wrap items-start gap-y-4 border-t-2 border-gray-600 bg-secondary p-4 md:flex-row md:gap-x-32">
       <Link href={"/"}>
         <Image src={"/logo.svg"} alt="scrapeit logo" width={80} height={100} />
       </Link>

@@ -56,7 +56,7 @@ export async function POST(req: Request) {
         email: evt.data.email_addresses[0].email_address,
         firstName: evt.data.first_name ?? "",
         lastName: evt.data.last_name,
-        imageUrl: evt.data.image_url,
+        avatarUrl: evt.data.image_url,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
           email: evt.data.email_addresses[0].email_address,
           firstName: evt.data.first_name ?? "",
           lastName: evt.data.last_name,
-          imageUrl: evt.data.image_url,
+          avatarUrl: evt.data.image_url,
         },
       });
 

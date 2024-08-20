@@ -52,14 +52,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: [neobrutalism],
-      }}
-    >
-      <html lang="en" className="scroll-smooth">
-        <body className={sourceSans.className}>{children}</body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className="scroll-smooth">
+      <ClerkProvider
+        appearance={{
+          baseTheme: [neobrutalism],
+        }}
+      >
+        <body className={`${sourceSans.className} h-screen`}>{children}</body>
+      </ClerkProvider>
+    </html>
   );
 }

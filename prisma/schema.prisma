@@ -8,13 +8,56 @@ datasource db {
 }
 
 model User {
-  id        String   @id
-  email     String   @unique
-  firstName String
-  lastName  String?
-  imageUrl  String?
+  id                 String        @id
+  email              String        @unique
+  firstName          String
+  lastName           String?
+  avatarUrl          String?
+  tracklist          Tracklist?
+  priceChangesEmails EmailToSend[]
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+}
+
+model Tracklist {
+  id        String    @id @default(uuid())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id                 String              @id @default(uuid())
+  storeId            String              @unique
+  title              String
+  imageUrl           String              @unique
+  initialPrice       Float
+  tracklist          Tracklist           @relation(fields: [tracklistId], references: [id])
+  tracklistId        String
+  priceChangeRecords PriceChangeRecord[]
+  lastCheckedAt      DateTime
+  productUrl         String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model PriceChangeRecord {
+  id        String   @id @default(uuid())
+  price     Float
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// tracklist=>product>
+model EmailToSend {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  emailContent String
+  imageUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
