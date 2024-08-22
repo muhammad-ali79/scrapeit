@@ -1,7 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-// import { NextResponse } from "next/server";
-// import { getProductId } from "@/components/validateProductUrl";
 
 const isPublicRoute = createRouteMatcher([
   "/",
@@ -9,18 +7,37 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*) ",
   "/api/webhooks/(.*)",
 ]);
-export default clerkMiddleware((auth, request) => {
-  if (!isPublicRoute(request)) {
-    auth().protect();
-  }
+export default clerkMiddleware(
+  (auth, request) => {
+    if (!isPublicRoute(request)) {
+      auth().protect();
+    }
 
-  const requestUrl = request.nextUrl;
-  if (auth().userId && !requestUrl.pathname.startsWith("/dashboard")) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(url);
-  }
-});
+    const requestUrl = request.nextUrl;
+    if (auth().userId && !requestUrl.pathname.startsWith("/dashboard")) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.redirect(url);
+    }
+  },
+  { debug: true },
+);
+
+export const config = {
+  // when middleware is running on api on subdomains fetching apis return html pages instead of JSON
+  // matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  // so excludeing running on api
+  // matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)", "/"],
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next/static|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
+};
+
+// PROBLEM: getting the html
+// TRY: what is matcher  FIND: that middleware  run for every route but we just to configure to run on specfic paths
 
 /* (auth, req) => {
   const requestUrl = req.nextUrl;
@@ -58,19 +75,3 @@ export default clerkMiddleware((auth, request) => {
     return NextResponse.rewrite(new URL(urlWithSearchParams, req.url));
   }
 } */
-
-export const config = {
-  // when middleware is running on api on subdomains fetching apis return html pages instead of JSON
-  // matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-  // so excludeing running on api
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)", "/"],
-  // matcher: [
-  //   // Skip Next.js internals and all static files, unless found in search params
-  //   "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-  //   // Always run for API routes
-  //   "/(api|trpc)(.*)",
-  // ],
-};
-
-// PROBLEM: getting the html
-//
