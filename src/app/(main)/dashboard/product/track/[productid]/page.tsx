@@ -1,11 +1,16 @@
-import initScraper from "@/libs/scripts/initTrackerScraper";
-import { getProductId, getUrl } from "@/components/validateProductUrl";
 import Image from "next/image";
 import AddToTrackListButton from "@/components/addToTracklistButtton";
+import initScraper from "@/libs/scripts/initTrackerScraper";
 
-async function Page() {
-  const data = await initScraper(getUrl);
-
+async function Page({
+  searchParams,
+  params,
+}: {
+  searchParams: { data: string };
+  params: { productId: string };
+}) {
+  const url = JSON.parse(decodeURIComponent(searchParams.data));
+  const data = await initScraper(url);
   return (
     <div className="mx-20 my-20 flex flex-col items-center gap-y-12 md:flex-row md:gap-x-20">
       <Image
@@ -23,8 +28,8 @@ async function Page() {
           Add to Tracklist
         </button> */}
         <AddToTrackListButton
-          url={getUrl}
-          productId={getProductId}
+          url={url}
+          productId={params.productId}
           data={data}
         />
       </div>

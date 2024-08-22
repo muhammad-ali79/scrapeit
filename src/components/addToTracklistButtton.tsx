@@ -19,7 +19,6 @@ type props = {
 
 export default function AddToTrackListButton({ url, productId, data }: props) {
   // just passing the reference to addProduct thats why await is not required
-  console.log(url, productId, data);
 
   return (
     <button

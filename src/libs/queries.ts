@@ -34,7 +34,6 @@ export const addProduct = async (
     | undefined,
 ) => {
   const user = await currentUser();
-  console.log("user", user);
 
   const isProductAlreadyAvilable = await db.product.findFirst({
     where: { storeId: productId },
@@ -44,6 +43,8 @@ export const addProduct = async (
   but new is considered is a good Practice */
   if (isProductAlreadyAvilable)
     throw new Error("Product is already in Tracklist");
+
+  console.log(user?.id);
 
   await db.tracklist.upsert({
     where: {

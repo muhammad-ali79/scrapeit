@@ -2,9 +2,6 @@
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
-let getProductId: string;
-let getUrl: string;
-
 export default function ValidateProductUrl() {
   const urlRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -19,11 +16,11 @@ export default function ValidateProductUrl() {
         },
       );
       const { productId, url } = await req.json();
-      getProductId = productId;
-      getUrl = url;
 
       router.push(
-        `http://dashboard.${process.env.NEXT_PUBLIC_ROOT_URL}/product/track/${productId}`,
+        // `http://dashboard.${process.env.NEXT_PUBLIC_ROOT_URL}/product/track/${productId}`,
+
+        `http://${process.env.NEXT_PUBLIC_ROOT_URL}/dashboard/product/track/${productId}?data=${JSON.stringify(encodeURIComponent(url))}`,
       );
       return router.refresh();
     } catch (error) {
@@ -57,5 +54,3 @@ export default function ValidateProductUrl() {
     </div>
   );
 }
-
-export { getProductId, getUrl };

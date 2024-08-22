@@ -1,12 +1,12 @@
 import puppeteer from "puppeteer";
 
 const initScraper = async function (url) {
-  const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: false,
-  });
+  const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
+
+  console.log("FROM SCRAper", url);
+
   await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
 
   const selectors = {

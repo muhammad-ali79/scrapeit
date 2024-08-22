@@ -1,8 +1,23 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { getProductId } from "@/components/validateProductUrl";
+// import { NextResponse } from "next/server";
+// import { getProductId } from "@/components/validateProductUrl";
 
-export default clerkMiddleware((auth, req) => {
+const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect();
+  }
+
+  const requestUrl = request.nextUrl;
+  if (auth().userId && !requestUrl.pathname.startsWith("/dashboard")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/dashboard";
+    return NextResponse.redirect(url);
+  }
+});
+
+/* (auth, req) => {
   const requestUrl = req.nextUrl;
   const host = req.headers.get("host");
   const dashboardSubdomain = `dashboard.${process.env.NEXT_PUBLIC_ROOT_URL}`;
@@ -37,12 +52,18 @@ export default clerkMiddleware((auth, req) => {
     const urlWithSearchParams = `/dashboard/${searchParams.length > 0 ? searchParams : ""}`;
     return NextResponse.rewrite(new URL(urlWithSearchParams, req.url));
   }
-});
+} */
 
 export const config = {
   // when middleware is running on api on subdomains fetching apis return html pages instead of JSON
   // matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-
   // so excludeing running on api
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)", "/"],
+  // matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)", "/"],
+
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
 };
