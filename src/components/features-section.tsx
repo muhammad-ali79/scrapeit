@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function FeaturesSection() {
   return (
-    <div className="relative h-full">
+    <div className="relative h-full text-white">
       <h2 className="mb-12 text-center text-7xl">Features</h2>
       <div className="h-full">
         <Image

@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main>
       <Nav />
-      <div className="flex h-full flex-col items-center bg-secondary">
+      <div className="flex h-full flex-col items-center bg-secondary text-white">
         <Image src={"/main.png"} alt="mainImage" width={400} height={400} />
         <h1 className="m-8 text-4xl">Welcome to Scrapeit!</h1>
         <h3 className="mb-8 text-center">

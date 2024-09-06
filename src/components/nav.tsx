@@ -5,7 +5,7 @@ import { UserButton } from "@clerk/nextjs";
 function Nav() {
   let isLogin;
   return (
-    <nav className="flex items-center justify-between border-b border-gray-500 bg-secondary px-4 py-2">
+    <nav className="flex items-center justify-between border-b border-gray-500 bg-secondary px-4 py-2 text-white">
       <div>
         <Link href={"/"}>
           <Image src={"/logo.svg"} alt="logo" width={80} height={80} />

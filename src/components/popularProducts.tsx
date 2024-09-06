@@ -2,7 +2,7 @@ import Card from "./card";
 
 function PopularProducts() {
   return (
-    <div className="flex flex-col bg-secondary px-2 py-12 md:px-8">
+    <div className="flex flex-col bg-secondary px-2 py-12 md:px-8 text-white">
       <div className="flex flex-col items-center justify-center">
         <h2 className="mb-8 text-4xl font-semibold lg:text-4xl">
           Popular Products

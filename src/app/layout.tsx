@@ -58,7 +58,7 @@ export default function RootLayout({
           baseTheme: [neobrutalism],
         }}
       >
-        <body className={`${sourceSans.className} h-screen`}>{children}</body>
+        <body className={`${sourceSans.className} h-screen bg-white`}>{children}</body>
       </ClerkProvider>
     </html>
   );
