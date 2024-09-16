@@ -39,3 +39,4 @@ next-env.d.ts
 *.todo
 Thingstolearn.txt
 thingstoLearn.txt
+.idx/integrations.json
