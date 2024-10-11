@@ -27,17 +27,21 @@ export const config = {
   // when middleware is running on api on subdomains fetching apis return html pages instead of JSON
   // matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
   // so excludeing running on api
-  // matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)", "/"],
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next/static|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)", "/"],
+
+  // matcher: [
+  //   // Skip Next.js internals and all static files, unless found in search params
+  //   "/((?!_next/static|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+  //   // Always run for API routes
+  //   "/api/webhooks",
+  // ],
 };
 
-// PROBLEM: getting the html
-// TRY: what is matcher  FIND: that middleware  run for every route but we just to configure to run on specfic paths
-
+/* PROBLEM: getting the html
+TRY: what is matcher  
+FIND: that middleware  run for every route but we just to configure to run on specfic paths
+FIND: if api include in matcher getting the 404 and html tree and if exclude500
+ */
 /* (auth, req) => {
   const requestUrl = req.nextUrl;
   const host = req.headers.get("host");
@@ -60,7 +64,7 @@ export const config = {
 
     if (requestUrl.pathname.startsWith("/product")) {
       // console.log("starting from product");
-
+ then 
       if (getProductId === "") return;
       return NextResponse.rewrite(
         new URL(

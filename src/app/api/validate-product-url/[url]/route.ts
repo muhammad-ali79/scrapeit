@@ -36,4 +36,4 @@ export async function GET(
   }
 }
 
-// https://www.amazon.com/HOFFREE-Computer-Footrest-Reclining-Headrest/dp/B0CRH5VLVG/ref=sr_1_7?_encoding=UTF8&sr=8-7
+// https://www.amazon.com/HOFFREE-Footrest-Ergonomic-Computer-Adjustable/dp/B0D769BM5F/?_encoding=UTF8&ref_=pd_hp_d_btf_ci_mcx_mr_hp_d
